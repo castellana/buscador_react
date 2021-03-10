@@ -7,8 +7,8 @@ import Search from './views/Search';
 function App() {
     return (
         <div className='App'>
-            <FormFunctional />
-            <FormClass />
+            {/*             <FormFunctional />
+            <FormClass /> */}
             {/*  <Ciclos /> */}
             <Search />
         </div>
