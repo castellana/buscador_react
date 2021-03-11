@@ -5,11 +5,12 @@ import data from '../../data/proyects.json';
 import SearchResults from './components/SearchResults';
 
 export default function Search() {
-    const [isAtTop, setIsAtTop] = useState(false);
+    const [isAtTop, setIsAtTop] = useState(
+        false
+    ); /* No la estamos usando de momento, la podríamos borrar */
     const [proyectsData, setProyectsData] = useState(
         data
-    ); /* No la estamos usando de momento, la podríamos borrar */
-    /* console.log(proyectsData); */
+    ); /* console.log(proyectsData); */
     const [results, setResults] = useState([]);
 
     /* forma reducida, 2 funciones en 1: */
