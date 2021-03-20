@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SearchBox from './components/SearchBox';
 import './style.css';
 import data from '../../data/proyects.json';
 import SearchResults from './components/SearchResults';
+import axios from 'axios';
 
 export default function Search() {
     const [isAtTop, setIsAtTop] = useState(
@@ -13,6 +14,28 @@ export default function Search() {
     ); /* console.log(proyectsData); */
     const [results, setResults] = useState([]);
 
+    /*probamos a usar fecth*/
+    /*     useEffect(() => {
+        const getUsers = async () => {
+            fetch('https://jsonplaceholder.tyicode.com/users')
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                });
+        };
+        getUsers().catch(null);
+    }, []); */
+
+    /*probamos a usar axios*/
+    useEffect(() => {
+        const getUsers = async () => {
+            const response = await axios.get(
+                'https://jsonplaceholder.typicode.com/users'
+            );
+            console.log(response);
+        };
+        getUsers().catch(null);
+    }, []);
     /* forma reducida, 2 funciones en 1: */
     const handleCloseSearch = () => {
         setIsAtTop(false); /*sólo queremos que cierre*/
