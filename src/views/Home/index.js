@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 /* Con useContext buscamos el context que vamos a usar en este componente */
 import PokemonContext from '../../context/pokemons';
+import PokemonList from './components/PokemonList';
 export default function Home() {
     /*     const myContext = useContext(PokemonsContext); */
 
@@ -14,5 +15,9 @@ export default function Home() {
     useEffect(() => {
         getPokemons().catch(null);
     }, []); /*solo quiero que se carguen los datos cuando la pagina se cargue*/
-    return <div>Home</div>;
+    return (
+        <div>
+            <PokemonList pokemons={pokemons} />
+        </div>
+    );
 }
