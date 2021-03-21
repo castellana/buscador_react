@@ -7,7 +7,7 @@ export default function Home() {
 
     /*destructuramos lo  de arriba:*/
 
-    const { getPokemons, pokemons } = useContext(PokemonContext);
+    const { getPokemons, pokemons, isLoading } = useContext(PokemonContext);
     /* console.log(myContext); */
     /*  console.log(showAlert); */
     /*  console.log(getPokemons); */
@@ -15,9 +15,9 @@ export default function Home() {
     useEffect(() => {
         getPokemons().catch(null);
     }, []); /*solo quiero que se carguen los datos cuando la pagina se cargue*/
-    return (
-        <div>
-            <PokemonList pokemons={pokemons} />
-        </div>
-    );
+
+    if (isLoading) {
+        return <p>Results loading</p>;
+    }
+    return <PokemonList pokemons={pokemons} />;
 }
