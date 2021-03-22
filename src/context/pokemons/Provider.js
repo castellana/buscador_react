@@ -8,10 +8,17 @@ export default function PokemonProvider({ children }) {
     const [pokemons, setPokemons] = useState([]);
     const [pokemonDetail, setPokemonDetail] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
+    /*creo 2 funciones para llamar la api: getPokemons y getPokemonDetail*/
     const getPokemons = async () => {
         try {
             setIsLoading(true);
+            setErrorMessage('');
+            setHasError(false);
+
+            /* throw new Error('hey!'); */
             const pokemonsResult = await apiCall({
                 url: 'https://pokeapi.co/api/v2/pokemon?limit=100',
             });
@@ -21,6 +28,8 @@ export default function PokemonProvider({ children }) {
             ); /*.results porque sólo queremos aquellos datos*/
         } catch (error) {
             setPokemons([]);
+            setErrorMessage('Something went wrong');
+            setHasError(true);
         } finally {
             setIsLoading(false);
         }
@@ -31,12 +40,18 @@ export default function PokemonProvider({ children }) {
         try {
             /*primero quiero que la información del pokemon anterior que se guardó, desaparezca*/
             setIsLoading(true);
+            setErrorMessage('');
+            setHasError(false);
+
+            /*  throw new Error('hey!'); */
             const pokemonDetail = await apiCall({
                 url: `https://pokeapi.co/api/v2/pokemon/${id}`,
             });
             setPokemonDetail(pokemonDetail);
         } catch (error) {
             setPokemonDetail({});
+            setErrorMessage('Something went wrong');
+            setHasError(true);
         } finally {
             setIsLoading(false);
         }
@@ -48,6 +63,10 @@ export default function PokemonProvider({ children }) {
                 pokemons,
                 getPokemonDetail,
                 pokemonDetail,
+                isLoading,
+                errorMessage,
+                hasError,
+                /*estas banderas van a ser pasadas a todos los componentes que estén consumiendo el provider o el contexto*/
             }}
         >
             {children} {/* le pasamos la propiedad default "children" */}
